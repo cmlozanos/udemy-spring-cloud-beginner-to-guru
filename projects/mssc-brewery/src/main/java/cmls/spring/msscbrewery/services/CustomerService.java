@@ -9,4 +9,10 @@ public interface CustomerService {
 	Customer findById(UUID id);
 
 	List<Customer> findAll();
+
+	Customer save(Customer customer);
+
+	Customer update(UUID id, Customer entity);
+
+	void delete(UUID id);
 }

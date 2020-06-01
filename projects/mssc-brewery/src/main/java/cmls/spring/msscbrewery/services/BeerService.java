@@ -9,4 +9,10 @@ public interface BeerService {
 	Beer findById(UUID id);
 
 	List<Beer> findAll();
+
+	Beer save(Beer beer);
+
+	Beer update(UUID id, Beer beer);
+
+	void delete(UUID id);
 }
