@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cmls.spring.msscbrewery.services.BeerService;
-import cmls.spring.msscbrewery.web.model.Beer;
+import cmls.spring.msscbrewery.services.CustomerService;
+import cmls.spring.msscbrewery.web.model.Customer;
 
 @RestController
-@RequestMapping("/api/v1/beers")
-public class BeerController {
+@RequestMapping("/api/v1/customers")
+public class CustomerController {
 	
-	private BeerService service;
+	private CustomerService service;
 	
-	public BeerController(BeerService service) {
+	public CustomerController(CustomerService service) {
 		this.service = service;
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Beer>> findAll() {
+	public ResponseEntity<List<Customer>> findAll() {
 		return ResponseEntity.ok(service.findAll());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Beer> findById(@PathVariable UUID id) {
+	public ResponseEntity<Customer> findById(@PathVariable UUID id) {
 		return ResponseEntity.ok(service.findById(id));
 	}
 }

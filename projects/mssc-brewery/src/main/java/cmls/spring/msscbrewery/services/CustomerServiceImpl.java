@@ -9,16 +9,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import cmls.spring.msscbrewery.web.model.Beer;
+import cmls.spring.msscbrewery.web.model.Customer;
 
 @Service
-public class BeerServiceImpl implements BeerService {
+public class CustomerServiceImpl implements CustomerService {
 
-	private List<Beer> entities = Arrays.asList(Beer.builder().id(UUID.randomUUID()).name("Cruzcampo").build(), Beer.builder().id(UUID.randomUUID()).name("Mahou").build()); 
+	private List<Customer> entities = Arrays.asList(Customer.builder().id(UUID.randomUUID()).name("Carlos").build(), Customer.builder().id(UUID.randomUUID()).name("Manuel").build()); 
 	
 	@Override
-	public Beer findById(UUID id) {
-		Optional<Beer> optionalEntity = entities.stream().filter(entity -> entity.getId().equals(id)).findFirst();
+	public Customer findById(UUID id) {
+		Optional<Customer> optionalEntity = entities.stream().filter(entity -> entity.getId().equals(id)).findFirst();
 		if (optionalEntity.isPresent())
 			return optionalEntity.get();
 		
@@ -26,7 +26,7 @@ public class BeerServiceImpl implements BeerService {
 	}
 
 	@Override
-	public List<Beer> findAll() {
+	public List<Customer> findAll() {
 		return entities;
 	}
 
