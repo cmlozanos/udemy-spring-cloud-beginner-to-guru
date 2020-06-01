@@ -1,0 +1,31 @@
+/projects/**/HELP.md
+/projects/**/gradle
+/projects/**/gradlew
+/projects/**/gradlew.bat
+/projects/**/build/
+/projects/**/gradle/wrapper/gradle-wrapper.jar
+!/projects/**/src/main/**
+!/projects/**/src/test/**
+
+### STS ###
+/projects/**/.apt_generated
+/projects/**/.classpath
+/projects/**/.factorypath
+/projects/**/.project
+/projects/**/.settings
+/projects/**/.springBeans
+/projects/**/.sts4-cache
+
+### IntelliJ IDEA ###
+/projects/**/.idea
+/projects/**/*.iws
+/projects/**/*.iml
+/projects/**/*.ipr
+/projects/**/out/
+
+### Eclipse ###
+.metadata
+
+### Others ###
+/projects/**/.gitignore
+/projects/**/bin/
