@@ -15,7 +15,8 @@ import cmls.spring.msscbrewery.web.model.Beer;
 @Service
 public class BeerServiceImpl implements BeerService {
 
-	private List<Beer> entities = Stream.of(Beer.builder().id(UUID.randomUUID()).name("Cruzcampo").build(), Beer.builder().id(UUID.randomUUID()).name("Mahou").build()).collect(Collectors.toList()); 
+	private static final UUID FIRST_UUID = UUID.fromString("3166f218-afe7-4a3e-9da7-042349927f7e");
+	private List<Beer> entities = Stream.of(Beer.builder().id(FIRST_UUID).name("Cruzcampo").build(), Beer.builder().id(UUID.randomUUID()).name("Mahou").build()).collect(Collectors.toList()); 
 	
 	@Override
 	public Beer findById(UUID id) {
