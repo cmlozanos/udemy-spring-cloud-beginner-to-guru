@@ -42,8 +42,13 @@ public class BeerServiceImpl implements BeerService {
 	@Override
 	public Beer update(UUID id, Beer entity) {
 		Optional<Beer> optionalEntity = entities.stream().filter(innerEntity -> innerEntity.getId().equals(id)).findFirst();
-		if (optionalEntity.isPresent())
-			return optionalEntity.get();
+		if (optionalEntity.isPresent()) {
+			Beer beer = optionalEntity.get();
+			beer.setName(entity.getName());
+			beer.setStyle(entity.getStyle());
+			beer.setUpc(entity.getUpc());
+			return beer;
+		}
 		
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 	}
