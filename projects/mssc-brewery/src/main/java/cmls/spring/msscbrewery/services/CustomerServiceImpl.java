@@ -10,12 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import cmls.spring.msscbrewery.web.model.Beer;
 import cmls.spring.msscbrewery.web.model.Customer;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-	private List<Customer> entities = Stream.of(Customer.builder().id(UUID.randomUUID()).name("Carlos").build(), Customer.builder().id(UUID.randomUUID()).name("Manuel").build()).collect(Collectors.toList()); 
+	private static final UUID FIRST_UUID = UUID.fromString("3166f218-afe7-4a3e-9da7-042349927f7e");
+	private List<Customer> entities = Stream.of(Customer.builder().id(FIRST_UUID).name("Carlos").build(), Customer.builder().id(UUID.randomUUID()).name("Manuel").build()).collect(Collectors.toList()); 
 	
 	@Override
 	public Customer findById(UUID id) {
@@ -41,8 +43,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Customer update(UUID id, Customer entity) {
 		Optional<Customer> optionalEntity = entities.stream().filter(innerEntity -> innerEntity.getId().equals(id)).findFirst();
-		if (optionalEntity.isPresent())
-			return optionalEntity.get();
+		if (optionalEntity.isPresent()) {
+			Customer customer = optionalEntity.get();
+			customer.setName(entity.getName());
+			return customer;
+		}
 		
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 	}
