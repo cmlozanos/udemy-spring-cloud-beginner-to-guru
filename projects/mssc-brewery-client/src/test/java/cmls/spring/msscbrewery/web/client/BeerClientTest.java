@@ -16,17 +16,16 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import cmls.spring.msscbrewery.web.model.Beer;
-import cmls.spring.msscbrewery.web.model.Customer;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
-@ContextConfiguration(classes = { BreweryClient.class, RestTemplate.class })
+@ContextConfiguration(classes = { BeerClient.class, RestTemplate.class })
 @TestPropertySource("/application.properties")
 @Slf4j
-public class BreweryClientTests {
+public class BeerClientTest {
 
 	@Autowired
-	BreweryClient client;
+	BeerClient client;
 
 	@Test
 	public void testFindBeerById() throws Exception {
@@ -34,7 +33,7 @@ public class BreweryClientTests {
 		UUID id = UUID.fromString("3166f218-afe7-4a3e-9da7-042349927f7e");
 
 		// when
-		Beer beer = client.findBeerById(id);
+		Beer beer = client.findById(id);
 
 		// then
 		assertNotNull(beer);
@@ -46,7 +45,7 @@ public class BreweryClientTests {
 		Beer beer = Beer.builder().id(UUID.randomUUID()).name("new beer").build();
 
 		// when
-		URI uri = client.saveBeer(beer);
+		URI uri = client.save(beer);
 
 		// then
 		assertNotNull(uri);
@@ -60,10 +59,10 @@ public class BreweryClientTests {
 		Beer beer = Beer.builder().id(id).name("updated beer").build();
 
 		// when
-		client.updateBeer(id, beer);
+		client.update(id, beer);
 
 		// then
-		Beer beerUpdated = client.findBeerById(id);
+		Beer beerUpdated = client.findById(id);
 		assertNotNull(beerUpdated);
 		assertEquals(beer.getId(), beerUpdated.getId());
 		assertEquals(beer.getName(), beerUpdated.getName());
@@ -75,71 +74,13 @@ public class BreweryClientTests {
 		UUID id = UUID.fromString("3166f218-afe7-4a3e-9da7-042349927f7e");
 
 		// when
-		client.deleteBeer(id);
+		client.delete(id);
 
 		// then
 		try {
-			client.findBeerById(id);
+			client.findById(id);
 		} catch (HttpClientErrorException hcee) {
 			assertEquals(hcee.getStatusCode(), HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	@Test
-	public void testFindCustomerById() throws Exception {
-		// given
-		UUID id = UUID.fromString("3166f218-afe7-4a3e-9da7-042349927f7e");
-		
-		// when
-		Customer customer = client.findCustomerById(id);
-		
-		// then
-		assertNotNull(customer);
-	}
-	
-	@Test
-	public void testSaveCustomer() throws Exception {
-		// given
-		Customer customer = Customer.builder().id(UUID.randomUUID()).name("new customer").build();
-		
-		// when
-		URI uri = client.saveCustomer(customer);
-		
-		// then
-		assertNotNull(uri);
-		log.info(uri.toString());
-	}
-	
-	@Test
-	public void testUpdateCustomer() throws Exception {
-		// given
-		UUID id = UUID.fromString("3166f218-afe7-4a3e-9da7-042349927f7e");
-		Customer customer = Customer.builder().id(id).name("updated beer").build();
-		
-		// when
-		client.updateCustomer(id, customer);
-		
-		// then
-		Customer customerUpdated = client.findCustomerById(id);
-		assertNotNull(customerUpdated);
-		assertEquals(customer.getId(), customerUpdated.getId());
-		assertEquals(customer.getName(), customerUpdated.getName());
-	}
-	
-	@Test
-	public void testDeleteCustomer() throws Exception {
-		// given
-		UUID id = UUID.fromString("3166f218-afe7-4a3e-9da7-042349927f7e");
-		
-		// when
-		client.deleteCustomer(id);
-		
-		// then
-		try {
-			client.findCustomerById(id);
-		} catch (HttpClientErrorException hcee) {
-			assertEquals(hcee.getStatusCode(), HttpStatus.NOT_FOUND);
-		}
-	}
-
 }
