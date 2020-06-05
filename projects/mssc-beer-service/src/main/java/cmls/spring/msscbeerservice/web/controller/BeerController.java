@@ -3,6 +3,8 @@ package cmls.spring.msscbeerservice.web.controller;
 import java.net.URI;
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -31,14 +33,14 @@ public class BeerController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Beer> save(@RequestBody Beer beer) {
+	public ResponseEntity<Beer> save(@Valid @RequestBody Beer beer) {
 		logger.info("save");
 		return ResponseEntity.created(URI.create("/api/v1/beers/" + UUID.randomUUID())).build();
 	}
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void update(@PathVariable UUID id, @RequestBody Beer beer) {
+	public void update(@PathVariable UUID id,@Valid @RequestBody Beer beer) {
 		logger.info("update");
 	}
 	

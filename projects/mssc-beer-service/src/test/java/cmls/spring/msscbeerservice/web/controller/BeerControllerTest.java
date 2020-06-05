@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cmls.spring.msscbeerservice.web.model.Beer;
+import cmls.spring.msscbeerservice.web.model.BeerStyleEnum;
 
 @WebMvcTest(BeerController.class)
 public class BeerControllerTest {
@@ -42,7 +44,8 @@ public class BeerControllerTest {
 	@Test
 	public void givenAnEntityWhenSaveThenShouldReturnCreatedAndLocation() throws Exception {
 		// given
-		Beer beer = Beer.builder().build();
+		Beer beer = Beer.builder().name("random name").style(BeerStyleEnum.GOSE).created(OffsetDateTime.now()).upc(1L)
+				.build();
 		String beerJSON = objectMapper.writeValueAsString(beer);
 
 		// when
@@ -56,7 +59,8 @@ public class BeerControllerTest {
 	public void givenAnIdAndAnEntityWhenUpdateThenShouldReturnNoContent() throws Exception {
 		// given
 		String id = UUID.randomUUID().toString();
-		Beer beer = Beer.builder().build();
+		Beer beer = Beer.builder().name("random name").style(BeerStyleEnum.GOSE).created(OffsetDateTime.now()).upc(1L)
+				.build();
 		String beerJSON = objectMapper.writeValueAsString(beer);
 
 		// when

@@ -4,7 +4,8 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import cmls.spring.msscbeerservice.web.model.Beer;
+import cmls.spring.msscbeerservice.domain.Beer;
+
 
 public interface BeerRepository extends JpaRepository<Beer, UUID> {
 

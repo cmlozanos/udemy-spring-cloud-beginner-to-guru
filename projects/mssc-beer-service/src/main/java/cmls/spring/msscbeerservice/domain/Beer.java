@@ -1,5 +1,6 @@
 package cmls.spring.msscbeerservice.domain;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-public class BeerEntity {
+public class Beer {
 
 	@Id
 	@GeneratedValue(generator = "UUID")
@@ -46,6 +47,9 @@ public class BeerEntity {
 	
 	@Column(unique = true)
 	private Long upc;
-	private Integer qualityOnHand;
+	
+	private BigDecimal price;
+	
+	private Integer minOnHand;
 	private Integer quantityToBrew;
 }
